@@ -13,6 +13,9 @@ export default class Menu extends Component {
         <Link to={ routeCodes.ABOUT }>
           About
         </Link>
+        <Link to={ routeCodes.BOARD }>
+          Board
+        </Link>
         <Link to='404'>
           404
         </Link>
