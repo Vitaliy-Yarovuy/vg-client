@@ -1,4 +1,5 @@
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
+import { CELL_TYPES } from 'structures/cell';
 
 import {
   TEST_ACTION,
@@ -7,12 +8,20 @@ import {
   TEST_ASYNC_ACTION_SUCCESS,
 } from 'actions/app';
 
+const sideSize = 10;
+
+const cells = [CELL_TYPES.GREEN].concat(
+  new Array(sideSize * sideSize - 2).fill(CELL_TYPES.EMPTY),
+  [CELL_TYPES.RED]);
+
 const initialState = Map({
   counter: 0,
   asyncLoading: false,
   asyncError: null,
   asyncData: null,
+  boardCells: fromJS(cells),
 });
+
 
 const actionsMap = {
   [TEST_ACTION]: (state) => {
