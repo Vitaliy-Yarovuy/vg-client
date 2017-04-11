@@ -7,3 +7,4 @@ export const CELL_TYPES = Object.freeze({
   RED_DEAD: 4,
 });
 
+export const SIDE_SIZE = 10;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CELL_TYPES } from 'structures/cell';
+import { CELL_TYPES, SIDE_SIZE } from 'structures/cell';
 
 
 

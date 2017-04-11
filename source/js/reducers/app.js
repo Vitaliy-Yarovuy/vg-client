@@ -1,5 +1,5 @@
 import { Map, fromJS } from 'immutable';
-import { CELL_TYPES } from 'structures/cell';
+import { CELL_TYPES, SIDE_SIZE } from 'structures/cell';
 
 import {
   TEST_ACTION,
@@ -8,10 +8,9 @@ import {
   TEST_ASYNC_ACTION_SUCCESS,
 } from 'actions/app';
 
-const sideSize = 10;
 
 const cells = [CELL_TYPES.GREEN].concat(
-  new Array(sideSize * sideSize - 2).fill(CELL_TYPES.EMPTY),
+  new Array(SIDE_SIZE * SIDE_SIZE - 2).fill(CELL_TYPES.EMPTY),
   [CELL_TYPES.RED]);
 
 const initialState = Map({
