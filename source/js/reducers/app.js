@@ -9,17 +9,21 @@ import {
 } from 'actions/app';
 
 
-const cells = [CELL_TYPES.GREEN].concat(
-  new Array(SIDE_SIZE * SIDE_SIZE - 2).fill(CELL_TYPES.EMPTY),
-  [CELL_TYPES.RED]);
+const cells = new Array(SIDE_SIZE * SIDE_SIZE).fill(CELL_TYPES.EMPTY);
+
+cells[0] = CELL_TYPES.RED;
+cells[44] = CELL_TYPES.GREEN;
+cells[66] = CELL_TYPES.RED;
+cells[cells.length - 1] = CELL_TYPES.GREEN;
 
 const initialState = Map({
   counter: 0,
   asyncLoading: false,
   asyncError: null,
   asyncData: null,
-  boardCells: fromJS(cells),
+  boardCells: cells,
 });
+
 
 
 const actionsMap = {

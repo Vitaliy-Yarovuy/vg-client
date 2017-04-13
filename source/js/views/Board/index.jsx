@@ -7,21 +7,28 @@ import Cell from 'components/Game/Cell';
 import { CELL_TYPES, SIDE_SIZE } from 'structures/cell';
 
 const NEIGHBORHOODS = [
-	[-1,-1],[-1,0],[-1,1],
-	[0,-1],[0,1],
-	[1,-1],[1,0],[1,1]
+  [-1, -1], [-1, 0], [-1, 1],
+  [0, -1], [0, 1],
+  [1, -1], [1, 0], [1, 1],
 ];
 
 const getFullState = (cells, index) => {
-	point = [index % SIDE_SIZE, Math.floor(index / SIDE_SIZE)];
+  const point = [index % SIDE_SIZE, Math.floor(index / SIDE_SIZE)];
 
-	NEIGHBORHOODS
-		.map(p => _.zipWith(p, point, _.add)
-		.filter(p => p.each(a => a > 0 && a < SIDE_SIZE))
+  const reds = [CELL_TYPES.RED, CELL_TYPES.GREEN_DEAD];
+  const greens = [CELL_TYPES.GREEN, CELL_TYPES.RED_DEAD];
+  const toIndex = p => p[0] + p[1] * SIDE_SIZE;
+  const neighbors = NEIGHBORHOODS
+    .map(p => _.zipWith(p, point, _.add))
+    .filter(p => p.every(a => a >= 0 && a < SIDE_SIZE));
 
-   return {
 
-   };
+  return {
+    index,
+    state: cells[index],
+    availableRed: neighbors.some(p => reds.includes(cells[toIndex(p)])),
+    availableGreen: neighbors.some(p => greens.includes(cells[toIndex(p)])),
+  };
 };
 
 
@@ -31,11 +38,11 @@ const getFullState = (cells, index) => {
 export default class Board extends Component {
   static propTypes = {
     boardCells: PropTypes.arrayOf(PropTypes.number),
-  }
+  };
 
   render() {
     const {
-      boardCells
+      boardCells,
     } = this.props;
 
     const style = {
@@ -44,17 +51,19 @@ export default class Board extends Component {
       border: '1px solid red',
     };
 
-
     return (
       <div className='Board'>
         <h2>Board</h2>
 
-        <Button bsStyle="primary">Primary</Button>
+        <Button bsStyle='primary'>Primary</Button>
         <hr />
 
-        <div style={style}>
+        <div style={ style }>
           {boardCells.map(
-            (cell,i)=> <Cell key={i}>{cell}</Cell>
+            (cell, i) => {
+              {/*console.log(i, fullState);*/}
+              return <Cell key={ i } { ...getFullState(boardCells, i) } />;
+            }
           )}
         </div>
 

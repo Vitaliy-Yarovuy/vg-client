@@ -15,13 +15,23 @@ const backgroundMap = {
 
 export default class Cell extends Component {
   static propTypes = {
-    children: PropTypes.number,
-  }
+    index: PropTypes.number,
+    state: PropTypes.number,
+    availableRed: PropTypes.bool,
+    availableGreen: PropTypes.bool,
+  };
 
   render() {
-    const state = this.props.children;
+
+    const {
+      index,
+      state,
+      availableRed,
+      availableGreen,
+    } = this.props;
 
     const style = {
+      position: 'relative',
       width: '40px',
       height: '40px',
       float: 'left',
@@ -31,9 +41,31 @@ export default class Cell extends Component {
       background: backgroundMap[state],
     };
 
+    const indicatorsStyle = {
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      margin: '-8px 0 0 -8px',
+      width: '16px',
+      height: '16px',
+      display: 'flex',
+    };
+    const indicatorRedStyle = {
+      flex: '1 100%',
+      background: backgroundMap[CELL_TYPES.RED],
+    };
+    const indicatorGreenStyle = {
+      flex: '1 100%',
+      background: backgroundMap[CELL_TYPES.GREEN],
+    };
+
     return (
       <div className='cell' style={style}>
-        {state}
+        <div style={indicatorsStyle}>
+          { availableRed && <div style={indicatorRedStyle}></div> }
+          { availableGreen && <div style={indicatorGreenStyle}></div> }
+        </div>
+        {index}
       </div>
     );
   }
