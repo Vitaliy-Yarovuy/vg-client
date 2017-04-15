@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from 'views/App';
 import Dashboard from 'views/Dashboard';
 import About from 'views/About';
-import Board from 'views/Board';
+import BoardPage from 'views/Board';
 
 import NotFound from 'views/NotFound';
 
@@ -24,7 +24,7 @@ export default class Routes extends Component {
           <IndexRoute component={ Dashboard } />
           <Route path={ routeCodes.DASHBOARD } component={ Dashboard } />
           <Route path={ routeCodes.ABOUT } component={ About } />
-          <Route path={ routeCodes.BOARD } component={ Board } />
+          <Route path={ routeCodes.BOARD } component={ BoardPage } />
 
           <Route path='*' component={ NotFound } />
         </Route>

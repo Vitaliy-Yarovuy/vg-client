@@ -1,5 +1,5 @@
 import { Map, fromJS } from 'immutable';
-import { CELL_TYPES, SIDE_SIZE } from 'structures/cell';
+import { CELL_TYPES, SIDE_SIZE, TEAMS } from 'structures/game';
 
 import {
   TEST_ACTION,
@@ -8,20 +8,11 @@ import {
   TEST_ASYNC_ACTION_SUCCESS,
 } from 'actions/app';
 
-
-const cells = new Array(SIDE_SIZE * SIDE_SIZE).fill(CELL_TYPES.EMPTY);
-
-cells[0] = CELL_TYPES.RED;
-cells[44] = CELL_TYPES.GREEN;
-cells[66] = CELL_TYPES.RED;
-cells[cells.length - 1] = CELL_TYPES.GREEN;
-
 const initialState = Map({
   counter: 0,
   asyncLoading: false,
   asyncError: null,
   asyncData: null,
-  boardCells: cells,
 });
 
 

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CELL_TYPES, SIDE_SIZE } from 'structures/cell';
+import { CELL_TYPES, SIDE_SIZE, TEAMS } from 'structures/game';
 
 
 
 const backgroundMap = {
   [CELL_TYPES.EMPTY]: '',
-  [CELL_TYPES.RED]: 'rgba(255,0,0,.5)',
-  [CELL_TYPES.GREEN]: 'rgba(0,255,0,.5)',
-  [CELL_TYPES.RED_DEAD]: 'rgba(64,255,0,.6)',
-  [CELL_TYPES.GREEN_DEAD]: 'rgba(255,64,0,.6)',
+  [CELL_TYPES.RED]: 'rgba(255,0,0,.6)',
+  [CELL_TYPES.GREEN]: 'rgba(0,255,0,.6)',
+  [CELL_TYPES.RED_DEAD]: 'rgba(144,255,0,.7)',
+  [CELL_TYPES.GREEN_DEAD]: 'rgba(255,144,0,.7)',
 };
 
 
@@ -19,6 +19,7 @@ export default class Cell extends Component {
     state: PropTypes.number,
     availableRed: PropTypes.bool,
     availableGreen: PropTypes.bool,
+    onClick: PropTypes.func
   };
 
   render() {
@@ -28,6 +29,7 @@ export default class Cell extends Component {
       state,
       availableRed,
       availableGreen,
+      onClick
     } = this.props;
 
     const style = {
@@ -36,7 +38,7 @@ export default class Cell extends Component {
       height: '40px',
       float: 'left',
       lineHeight: '40px',
-      border: '1px solid red',
+      border: '1px solid #555',
       textAlign: 'center',
       background: backgroundMap[state],
     };
@@ -60,7 +62,7 @@ export default class Cell extends Component {
     };
 
     return (
-      <div className='cell' style={style}>
+      <div className='cell' style={style} onClick={onClick}>
         <div style={indicatorsStyle}>
           { availableRed && <div style={indicatorRedStyle}></div> }
           { availableGreen && <div style={indicatorGreenStyle}></div> }
