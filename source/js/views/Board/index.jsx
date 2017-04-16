@@ -24,6 +24,8 @@ export default class BoardPage extends Component {
     } = this.props;
 
     const team = game.nextMove === TEAMS.RED ? 'RED' : 'GREEN';
+    const greenSize = game.cells.filter(cell=>cell === CELL_TYPES.GREEN).length;
+    const redSize = game.cells.filter(cell=>cell === CELL_TYPES.RED).length;
 
     const style = {
       width: '402px',
@@ -40,6 +42,8 @@ export default class BoardPage extends Component {
         <h2>Board</h2>
         <h3>Team:{team}</h3>
         <label>{(4 - game.moveCount)}/3</label>
+        |
+        <label style={{ color: 'green'}}>{greenSize}</label>:<label style={{ color: 'red'}}> {redSize}</label>
         <hr />
 
         <Board onCellClick={onCellClick}  {...game}></Board>

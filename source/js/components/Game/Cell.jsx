@@ -8,9 +8,13 @@ const backgroundMap = {
   [CELL_TYPES.EMPTY]: '',
   [CELL_TYPES.RED]: 'rgba(255,0,0,.6)',
   [CELL_TYPES.GREEN]: 'rgba(0,255,0,.6)',
-  [CELL_TYPES.RED_DEAD]: 'rgba(144,255,0,.7)',
-  [CELL_TYPES.GREEN_DEAD]: 'rgba(255,144,0,.7)',
+  [CELL_TYPES.RED_DEAD]: 'rgba(128,223,0,.6)',
+  [CELL_TYPES.GREEN_DEAD]: 'rgba(255,64,0,.6)',
 };
+
+const row = 'ABCDEFGHIK';
+
+const toLabel = (index)=> (10 - Math.floor(index/10)) + row[index%10];
 
 
 export default class Cell extends Component {
@@ -67,7 +71,7 @@ export default class Cell extends Component {
           { availableRed && <div style={indicatorRedStyle}></div> }
           { availableGreen && <div style={indicatorGreenStyle}></div> }
         </div>
-        {index}
+        {toLabel(index)}
       </div>
     );
   }

@@ -16,7 +16,8 @@ cells[cells.length - 1] = CELL_TYPES.GREEN;
 const initialState = {
   cells,
   nextMove: TEAMS.GREEN,
-  moveCount: 3
+  moveCount: 2,
+  step: 0
 };
 
 
@@ -28,9 +29,10 @@ const updateCell = (state, index, cell) => {
 
 const checkFinishStep = (state)=>{
   if(state.moveCount <= 0){
-    const moveCount = 3;
+    const step = state.step + 1;
+    const moveCount = step < 2 ? 2 : 3;
     const nextMove = state.nextMove === TEAMS.RED? TEAMS.GREEN: TEAMS.RED;
-    return Object.assign({}, state, { moveCount, nextMove });
+    return Object.assign({}, state, { moveCount, nextMove, step });
   }
   return state;
 };
