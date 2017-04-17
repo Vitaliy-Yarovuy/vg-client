@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Cell from 'components/Game/Cell';
 import Board from 'components/Game/Board';
+import WinMessage from 'components/Game/WinMessage';
 import {hit} from 'actions/game';
-import { CELL_TYPES, SIDE_SIZE, TEAMS } from 'structures/game';
+import { CELL_TYPES, SIDE_SIZE, TEAMS, STATES } from 'structures/game';
 
 
 @connect(state => ({
@@ -27,11 +28,7 @@ export default class BoardPage extends Component {
     const greenSize = game.cells.filter(cell=>cell === CELL_TYPES.GREEN).length;
     const redSize = game.cells.filter(cell=>cell === CELL_TYPES.RED).length;
 
-    const style = {
-      width: '402px',
-      height: '402px',
-      border: '1px solid red',
-    };
+    const messageWin = game.gameState === STATES.WIN_RED ? 'RED WIN!' : 'GREEN WIN!';
 
     const onCellClick = (index)=>{
       dispatch(hit(game.nextMove, index));
@@ -46,7 +43,9 @@ export default class BoardPage extends Component {
         <label style={{ color: 'green'}}>{greenSize}</label>:<label style={{ color: 'red'}}> {redSize}</label>
         <hr />
 
-        <Board onCellClick={onCellClick}  {...game}></Board>
+        <Board onCellClick={onCellClick}  {...game} />
+        <WinMessage showModal={game.gameState !== STATES.PLAYING} text={messageWin} />
+
 
         <hr />
       </div>

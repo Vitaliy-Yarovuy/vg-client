@@ -3,9 +3,11 @@ import {
   CELL_RED_TYPES, CELL_GREEN_TYPES,
   CELL_AVAILABLE_FOR_RED_TYPES,
   CELL_AVAILABLE_FOR_GREEN_TYPES,
+  STATES,
   } from 'structures/game';
 
 import { HIT_ACTION } from 'actions/game';
+import { searchAvailableCell } from 'utils/search';
 
 
 const cells = new Array(SIDE_SIZE * SIDE_SIZE).fill(CELL_TYPES.EMPTY);
@@ -17,7 +19,8 @@ const initialState = {
   cells,
   nextMove: TEAMS.GREEN,
   moveCount: 2,
-  step: 0
+  step: 0,
+  gameState: STATES.PLAYING
 };
 
 
@@ -37,26 +40,42 @@ const checkFinishStep = (state)=>{
   return state;
 };
 
+const checkFinishGame = (state)=>{
+  const indexes = searchAvailableCell(state.nextMove, state.cells);
+
+  if(!indexes.length){
+    const gameState = state.nextMove === TEAMS.RED ? STATES.WIN_GREEN: STATES.WIN_RED;
+    return Object.assign({}, state, { gameState });
+  }
+
+  return state;
+};
+
+
+
 const actionsMap = {
   [HIT_ACTION]: (state, action) => {
     const index = action.data.index;
     const cell = state.cells[index];
     const isRed = action.data.team === TEAMS.RED;
+    let updateState = state;
 
     if(isRed && CELL_AVAILABLE_FOR_RED_TYPES.includes(cell)){
       let updatedCell = cell === CELL_TYPES.EMPTY ? CELL_TYPES.RED : CELL_TYPES.GREEN_DEAD;
-      let updateState = updateCell(state, index, updatedCell);
+      updateState = updateCell(state, index, updatedCell);
       updateState.moveCount--;
-      return checkFinishStep(updateState);
+      updateState = checkFinishStep(updateState);
+      updateState = checkFinishGame(updateState);
     }
 
     if(!isRed && CELL_AVAILABLE_FOR_GREEN_TYPES.includes(cell)){
       let updatedCell = cell === CELL_TYPES.EMPTY ? CELL_TYPES.GREEN : CELL_TYPES.RED_DEAD;
-      let updateState = updateCell(state, index, updatedCell);
+      updateState = updateCell(state, index, updatedCell);
       updateState.moveCount--;
-      return checkFinishStep(updateState);
+      updateState = checkFinishStep(updateState);
+      updateState = checkFinishGame(updateState);
     }
-    return state;
+    return updateState;
   },
 };
 

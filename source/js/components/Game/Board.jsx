@@ -39,9 +39,9 @@ export default class Board extends Component {
   render() {
 
     const style = {
-      width: '402px',
-      height: '402px',
-      border: '1px solid #aaa',
+      width: (40 * SIDE_SIZE + 2) + 'px',
+      height: (40 * SIDE_SIZE + 2) +'px',
+      border: '1px solid red',
     };
 
     const cellsExtended = this.getFullState();
