@@ -8,7 +8,7 @@ const backgroundMap = {
   [CELL_TYPES.EMPTY]: '',
   [CELL_TYPES.RED]: 'rgba(255,0,0,.6)',
   [CELL_TYPES.GREEN]: 'rgba(0,255,0,.6)',
-  [CELL_TYPES.RED_DEAD]: 'rgba(128,223,0,.6)',
+  [CELL_TYPES.RED_DEAD]: 'rgba(168,255,0,.6)',
   [CELL_TYPES.GREEN_DEAD]: 'rgba(255,64,0,.6)',
 };
 
@@ -51,9 +51,9 @@ export default class Cell extends Component {
       position: 'absolute',
       left: '50%',
       top: '50%',
-      margin: '-8px 0 0 -8px',
-      width: '16px',
-      height: '16px',
+      margin: '-9px 0 0 -9px',
+      width: '18px',
+      height: '18px',
       display: 'flex',
     };
     const indicatorRedStyle = {
