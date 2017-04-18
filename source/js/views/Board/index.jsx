@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Cell from 'components/Game/Cell';
 import Board from 'components/Game/Board';
 import WinMessage from 'components/Game/WinMessage';
 import {hit} from 'actions/game';
@@ -13,10 +11,10 @@ import { CELL_TYPES, SIDE_SIZE, TEAMS, STATES } from 'structures/game';
   game: state.game
 }))
 export default class BoardPage extends Component {
-  static propTypes = {
-    game: PropTypes.object,
-    dispatch: PropTypes.func,
-  };
+     static propTypes = {
+       game: PropTypes.object,
+       dispatch: PropTypes.func,
+     };
 
   render() {
     const {

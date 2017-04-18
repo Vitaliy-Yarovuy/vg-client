@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { HIT_ACTION } from 'actions/game';
-import { searchAvailableCell } from 'utils/search';
-import {
-  CELL_TYPES, SIDE_SIZE, TEAMS,
-  CELL_RED_TYPES, CELL_GREEN_TYPES,
-  CELL_AVAILABLE_FOR_RED_TYPES,
-  CELL_AVAILABLE_FOR_GREEN_TYPES,
-  STATES,
-} from 'structures/game';
 import bookImg from '../../../assets/img/book2.jpg';
+
 
 
 
@@ -19,6 +12,10 @@ export default class Board extends Component {
     showModal: PropTypes.bool,
     text: PropTypes.string,
   };
+
+  close(){
+    browserHistory.push('/');
+  }
 
   render() {
     const { showModal, text } = this.props;

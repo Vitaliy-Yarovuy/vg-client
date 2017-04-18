@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import App from 'views/App';
-import Dashboard from 'views/Dashboard';
-import About from 'views/About';
+import HomePage from 'views/Home';
+import AboutPage from 'views/About';
 import BoardPage from 'views/Board';
 
-import NotFound from 'views/NotFound';
+import NotFoundPage from 'views/NotFound';
 
 const publicPath = '/';
 
@@ -21,12 +21,12 @@ export default class Routes extends Component {
     return (
       <Router history={ browserHistory }>
         <Route path={ publicPath } component={ App }>
-          <IndexRoute component={ Dashboard } />
-          <Route path={ routeCodes.DASHBOARD } component={ Dashboard } />
-          <Route path={ routeCodes.ABOUT } component={ About } />
+          <IndexRoute component={ HomePage } />
+          <Route path={ routeCodes.DASHBOARD } component={ HomePage } />
+          <Route path={ routeCodes.ABOUT } component={ AboutPage } />
           <Route path={ routeCodes.BOARD } component={ BoardPage } />
 
-          <Route path='*' component={ NotFound } />
+          <Route path='*' component={ NotFoundPage } />
         </Route>
       </Router>
     );
