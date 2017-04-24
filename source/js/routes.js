@@ -5,6 +5,7 @@ import App from 'views/App';
 import HomePage from 'views/Home';
 import AboutPage from 'views/About';
 import BoardPage from 'views/Board';
+import AuthPage from 'views/Auth';
 
 import NotFoundPage from 'views/NotFound';
 
@@ -14,6 +15,7 @@ export const routeCodes = {
   DASHBOARD: publicPath,
   ABOUT: `${ publicPath }about`,
   BOARD: `${ publicPath }board`,
+  AUTH: `${ publicPath }auth`,
 };
 
 export default class Routes extends Component {
@@ -25,6 +27,7 @@ export default class Routes extends Component {
           <Route path={ routeCodes.DASHBOARD } component={ HomePage } />
           <Route path={ routeCodes.ABOUT } component={ AboutPage } />
           <Route path={ routeCodes.BOARD } component={ BoardPage } />
+          <Route path={ routeCodes.AUTH } component={ AuthPage } />
 
           <Route path='*' component={ NotFoundPage } />
         </Route>

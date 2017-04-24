@@ -15,6 +15,34 @@ function testAsync() {
   });
 }
 
+
+function anonymLogin() {
+  return fetch('http://127.0.0.1:3001/registate_anonym', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    //body: JSON.stringify({ a: 7, str: 'Some string: &=&' }),
+  }).then(res => res.json())
+    .then(res => {
+      const { token, user } = res;
+
+      return {
+        token,
+        user
+      };
+
+      // fetch('http://127.0.0.1:3001/restricted', {
+      //   method: 'get',
+      //   headers: {
+      //     'Authorization': `Bearer ${ token }`,
+      //   },
+      // }).then(res => console.log(res));
+    });
+}
+
+
 export default {
-  testAsync,
+  testAsync, anonymLogin,
 };

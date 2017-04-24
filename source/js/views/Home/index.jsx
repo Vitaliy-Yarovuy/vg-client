@@ -29,6 +29,7 @@ export default class HomePage extends Component {
           <ButtonGroup vertical>
              <Button onClick={startSingleGame}> play (single mode) </Button>
              <LinkContainer to='/about'><Button> about </Button></LinkContainer>
+             <LinkContainer to='/auth'><Button> auth </Button></LinkContainer>
           </ButtonGroup>
        </div>
     );
