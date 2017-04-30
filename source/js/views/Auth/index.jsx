@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import api from 'api';
+import {anonymLogin} from 'actions/auth';
 
 
 @connect(state => ({
-  auth: state.auth
+  auth: state.auth,
 }))
 export default class AuthPage extends Component {
   static propTypes = {
@@ -16,11 +16,13 @@ export default class AuthPage extends Component {
 
   render() {
     const {
-      auth = {},
-      dispatch
+      auth,
+      dispatch,
     } = this.props;
 
-    const login = ()=>api.anonymLogin();
+    const login = () => {
+      return dispatch(anonymLogin());
+    };
 
     return (
       <div className='BoardPage'>
@@ -33,7 +35,7 @@ export default class AuthPage extends Component {
           <dd>{auth.token || '...'}</dd>
         </dl>
 
-        <Button bsStyle='primary' onClick={login}>Login as Noname</Button>
+        <Button bsStyle='primary' onClick={ login }>Login as Noname</Button>
 
         <hr />
       </div>

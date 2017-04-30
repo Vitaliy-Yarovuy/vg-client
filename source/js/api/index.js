@@ -16,8 +16,11 @@ function testAsync() {
 }
 
 
+
+const API_ROOT = 'http://127.0.0.1:3001';
+
 function anonymLogin() {
-  return fetch('http://127.0.0.1:3001/registate_anonym', {
+  return fetch(`${ API_ROOT }/registrate_anonym`, {
     method: 'post',
     headers: {
       'Accept': 'application/json',
@@ -26,19 +29,21 @@ function anonymLogin() {
     //body: JSON.stringify({ a: 7, str: 'Some string: &=&' }),
   }).then(res => res.json())
     .then(res => {
-      const { token, user } = res;
+      const { token } = res;
 
-      return {
-        token,
-        user
-      };
-
-      // fetch('http://127.0.0.1:3001/restricted', {
-      //   method: 'get',
-      //   headers: {
-      //     'Authorization': `Bearer ${ token }`,
-      //   },
-      // }).then(res => console.log(res));
+      return fetch(`${ API_ROOT }/api/user`, {
+        method: 'get',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${ token }`,
+        },
+      }).then(res => res.json())
+        .then(res => ({
+          token,
+          user: res.user,
+          expiredAt: new Date(res.expiredAt),
+        }));
     });
 }
 

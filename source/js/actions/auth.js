@@ -1,48 +1,31 @@
 import api from 'api';
 
-export const TEST_ACTION = 'TEST_ACTION';
 
-export const TEST_ASYNC_ACTION_START = 'TEST_ASYNC_ACTION_START';
-export const TEST_ASYNC_ACTION_ERROR = 'TEST_ASYNC_ACTION_ERROR';
-export const TEST_ASYNC_ACTION_SUCCESS = 'TEST_ASYNC_ACTION_SUCCESS';
+export const ANONYM_LOGIN_ACTION_START = 'ANONYM_LOGIN_ACTION_START';
+export const ANONYM_LOGIN_ACTION_SUCCESS = 'ANONYM_LOGIN_ACTION_SUCCESS';
 
-// Test action
 
-export function testAction() {
+function anonymLoginStart() {
   return {
-    type: TEST_ACTION,
+    type: ANONYM_LOGIN_ACTION_START,
   };
 }
 
-// Async action example
-
-function testAsyncStart() {
+function anonymLoginSuccess(data) {
   return {
-    type: TEST_ASYNC_ACTION_START,
-  };
-}
-
-function testAsyncSuccess(data) {
-  return {
-    type: TEST_ASYNC_ACTION_SUCCESS,
+    type: ANONYM_LOGIN_ACTION_SUCCESS,
     data,
   };
 }
 
-function testAsyncError(error) {
-  return {
-    type: TEST_ASYNC_ACTION_ERROR,
-    error,
-  };
-}
 
-export function testAsync() {
+export function anonymLogin() {
   return function (dispatch) {
-    dispatch(testAsyncStart());
+    dispatch(anonymLoginStart());
 
-    api.testAsync()
-      .then(data => dispatch(testAsyncSuccess(data)))
-      .catch(error => dispatch(testAsyncError(error)));
+    api.anonymLogin()
+      .then(data => dispatch(anonymLoginSuccess(data)));
+      // .catch(error => dispatch(testAsyncError(error)));
   };
 }
 
