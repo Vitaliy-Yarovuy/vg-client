@@ -1,17 +1,20 @@
-import { Map } from 'immutable';
-
 import {
+  LOGOUT_ACTION,
   ANONYM_LOGIN_ACTION_START,
   ANONYM_LOGIN_ACTION_SUCCESS,
 } from 'actions/auth';
 
-const initialState = Map({
+const initialState = {
   asyncLoading: false,
   user: null,
   token: null,
-});
+};
 
 const actionsMap = {
+  [LOGOUT_ACTION]: (state) => {
+    return Object.assign({}, state, initialState);
+  },
+
   [ANONYM_LOGIN_ACTION_START]: (state) => {
     return Object.assign({}, state, { asyncLoading: true });
   },

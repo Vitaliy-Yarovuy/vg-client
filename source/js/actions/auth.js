@@ -1,6 +1,7 @@
 import api from 'api';
 
 
+export const LOGOUT_ACTION = 'LOGOUT_ACTION';
 export const ANONYM_LOGIN_ACTION_START = 'ANONYM_LOGIN_ACTION_START';
 export const ANONYM_LOGIN_ACTION_SUCCESS = 'ANONYM_LOGIN_ACTION_SUCCESS';
 
@@ -18,15 +19,22 @@ function anonymLoginSuccess(data) {
   };
 }
 
-
 export function anonymLogin() {
   return function (dispatch) {
     dispatch(anonymLoginStart());
 
     api.anonymLogin()
-      .then(data => dispatch(anonymLoginSuccess(data)));
+      .then(data => {
+        setTimeout( () => dispatch(anonymLoginSuccess(data)), 2000);
+      });
       // .catch(error => dispatch(testAsyncError(error)));
   };
 }
 
-// Update
+export function logout() {
+  return {
+    type: LOGOUT_ACTION,
+  };
+}
+
+

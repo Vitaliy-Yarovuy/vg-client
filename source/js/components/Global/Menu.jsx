@@ -16,6 +16,9 @@ export default class Menu extends Component {
         <Link to={ routeCodes.BOARD }>
           Board
         </Link>
+        <Link to={ routeCodes.AUTH }>
+          Auth
+        </Link>
         <Link to='404'>
           404
         </Link>

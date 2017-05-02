@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import {anonymLogin} from 'actions/auth';
+import { anonymLogin, logout } from 'actions/auth';
 
 
 @connect(state => ({
@@ -24,19 +24,33 @@ export default class AuthPage extends Component {
       return dispatch(anonymLogin());
     };
 
-    return (
-      <div className='BoardPage'>
-        <h2>AUTH</h2>
+    const logoutAction = () => {
+      return dispatch(logout());
+    };
 
-        <dl className='dl-horizontal'>
+    return (
+      <div className='BoardPage' style={{ position: 'relative' }}>
+        <h2>AUTH</h2>
+        <dl className='dl-horizontal' >
           <dt>user</dt>
           <dd>{auth.user || '...'}</dd>
           <dt>token</dt>
-          <dd>{auth.token || '...'}</dd>
+          <dd style={{ wordBreak: 'break-word' }}>{auth.token || '...'}</dd>
         </dl>
 
-        <Button bsStyle='primary' onClick={ login }>Login as Noname</Button>
 
+        <div className='btn-group' role='group'>
+          <Button bsStyle='primary' onClick={ login } disabled={ !!auth.user }>Login as Noname</Button>
+          <Button bsStyle='primary' onClick={ logoutAction } disabled={ !auth.user }>Log out</Button>
+        </div>
+
+        {
+          auth.asyncLoading
+            ? <div className='internal-overlay'>
+            <div className='loader'></div>
+          </div>
+            : null
+        }
         <hr />
       </div>
     );
