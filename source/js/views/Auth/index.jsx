@@ -47,8 +47,8 @@ export default class AuthPage extends Component {
         {
           auth.asyncLoading
             ? <div className='internal-overlay'>
-            <div className='loader'></div>
-          </div>
+                <div className='loader'></div>
+              </div>
             : null
         }
         <hr />

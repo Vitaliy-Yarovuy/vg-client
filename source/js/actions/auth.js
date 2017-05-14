@@ -20,12 +20,12 @@ function anonymLoginSuccess(data) {
 }
 
 export function anonymLogin() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(anonymLoginStart());
 
     api.anonymLogin()
       .then(data => {
-        setTimeout( () => dispatch(anonymLoginSuccess(data)), 2000);
+        setTimeout( () => dispatch(anonymLoginSuccess(data)), 500);
       });
       // .catch(error => dispatch(testAsyncError(error)));
   };
