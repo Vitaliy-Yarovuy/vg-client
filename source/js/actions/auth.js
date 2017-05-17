@@ -1,4 +1,5 @@
 import api from 'api';
+import ws from 'api/ws';
 
 
 export const LOGOUT_ACTION = 'LOGOUT_ACTION';
@@ -25,6 +26,7 @@ export function anonymLogin() {
 
     api.anonymLogin()
       .then(data => {
+        ws.connect(data.token);
         setTimeout( () => dispatch(anonymLoginSuccess(data)), 500);
       });
       // .catch(error => dispatch(testAsyncError(error)));
@@ -32,6 +34,7 @@ export function anonymLogin() {
 }
 
 export function logout() {
+  ws.disconnect();
   return {
     type: LOGOUT_ACTION,
   };
