@@ -1,4 +1,4 @@
-import ws from 'api/auth';
+import { ENTER_ROOM_ACTION, LEAVE_ROOM_ACTION } from 'actions/room';
 
 const initialState = {
   users: [],
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const actionsMap = {
- 
+ []
 };
 
 export default function reducer(state = initialState, action = {}) {

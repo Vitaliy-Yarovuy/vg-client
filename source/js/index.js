@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import 'babel-polyfill';
 import logger from 'dev/logger';
 
+
 import rootReducer from 'reducers';
 import Routes from 'routes';
 import DevTools from 'dev/redux-dev-tools';
@@ -20,7 +21,7 @@ let store = null;
 
 if (isProduction) {
   // In production adding only thunk middleware
-  const middleware = applyMiddleware(thunk);
+  const middleware = applyMiddleware( thunk);
 
   store = createStore(
     rootReducer,
@@ -29,7 +30,7 @@ if (isProduction) {
 } else {
   // In development mode beside thunk
   // logger and DevTools are added
-  const middleware = applyMiddleware(thunk, logger);
+  const middleware = applyMiddleware( thunk, logger);
   const enhancer = compose(
     middleware,
     DevTools.instrument()
