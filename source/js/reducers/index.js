@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import game from 'reducers/game';
-import auth from 'reducers/auth';
+import app from 'reducers/app';
+import room from 'reducers/room';
 
 export default combineReducers({
-  game, auth,
+  game, app, room,
 });

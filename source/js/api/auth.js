@@ -2,6 +2,8 @@ import 'es6-promise';
 
 const API_ROOT = 'http://127.0.0.1:3001';
 
+localStorage.token = null;
+
 function anonymLogin() {
   return fetch(`${ API_ROOT }/registrate_anonym`, {
     method: 'post',
@@ -14,7 +16,13 @@ function anonymLogin() {
     .then(res => {
       const { token } = res;
       localStorage.token = token;
-      return fetch(`${ API_ROOT }/api/user?token=${ token }`, {
+      return getUserInfo();  
+    });
+}
+
+function getUserInfo(){
+   const token = getToken();
+   return fetch(`${ API_ROOT }/api/user?token=${ token }`, {
         method: 'get',
         headers: {
           'Accept': 'application/json',
@@ -26,17 +34,15 @@ function anonymLogin() {
           user: res.user,
           expiredAt: new Date(res.expiredAt),
         }));
-    });
 }
 
 function loggedIn() {
   return !!localStorage.token;
-},
+}
 
 function getToken() {
   return localStorage.token;
-},
-
+}
 
 export default {
   anonymLogin, loggedIn, getToken

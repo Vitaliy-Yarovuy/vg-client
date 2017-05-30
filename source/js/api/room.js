@@ -1,26 +1,29 @@
 import { ANONYM_LOGIN_ACTION_SUCCESS, LOGOUT_ACTION } from 'actions/auth';
-import { getToken } from 'api/auth';
+import auth from 'api/auth';
 
 const API_WS_ROOT = 'ws://127.0.0.1:3002';
 let ws = null;
+const loop = ()=>null;
 
-
-function connect(){
-  ws = new WebSocket(`${ API_WS_ROOT }/ws?token=${ getToken() }`);
-
+function connect(onOpen = loop, onMessage = loop, onclose = loop){
+  const token = auth.getToken();
+  ws = new WebSocket(`${ API_WS_ROOT }/ws?token=${ token }`);
 
   ws.onopen = function() {
     console.log('Connected');
+    onOpen();
   }
 
   ws.onmessage = function(evt) {
     console.log('message:',evt.data);
+    onMessage(evt);
   }
 
   ws.onclose = function(evt) {
     clearInterval(id);
     ws = null
     console.log('Closed:',evt);
+    onclose();
   }
 
   let id = setInterval(function() {
@@ -35,7 +38,8 @@ function disconnect(){
 
 
 function load(){
-  return fetch(`http://127.0.0.1:3002/room?token=${ getToken() }`, {
+  const token = auth.getToken();
+  return fetch(`http://127.0.0.1:3002/room?token=${ token }`, {
     method: 'get',
     headers: {
       'Accept': 'application/json',
