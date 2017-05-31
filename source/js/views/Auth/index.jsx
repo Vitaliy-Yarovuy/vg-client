@@ -67,6 +67,16 @@ export default class AuthPage extends Component {
               <Button bsStyle='primary' onClick={ enterToRoom } disabled={ !!room.entered }>Enter</Button>
               <Button bsStyle='primary' onClick={ leaveRoom } disabled={ !room.entered }>Leave</Button>
             </div>
+            <h3>users:</h3>
+            <p>
+                {room.users.map(user => {
+                   return <kbd style={{marginRight: '5px'}}>{user}</kbd>  
+                })}
+            </p>
+            <h3>boards:</h3>
+            <p>---</p>
+            <h3>messages:</h3>
+            <p>---</p>
           </div>
           :null  
         }    
