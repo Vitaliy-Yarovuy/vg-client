@@ -6,6 +6,7 @@ import HomePage from 'views/Home';
 import AboutPage from 'views/About';
 import BoardPage from 'views/Board';
 import AuthPage from 'views/Auth';
+import RoomPage from 'views/Room';
 
 import NotFoundPage from 'views/NotFound';
 
@@ -16,6 +17,7 @@ export const routeCodes = {
   ABOUT: `${ publicPath }about`,
   BOARD: `${ publicPath }board`,
   AUTH: `${ publicPath }auth`,
+  ROOM: `${ publicPath }room`,
 };
 
 export default class Routes extends Component {
@@ -28,6 +30,7 @@ export default class Routes extends Component {
           <Route path={ routeCodes.ABOUT } component={ AboutPage } />
           <Route path={ routeCodes.BOARD } component={ BoardPage } />
           <Route path={ routeCodes.AUTH } component={ AuthPage } />
+          <Route path={ routeCodes.ROOM } component={ RoomPage } />
 
           <Route path='*' component={ NotFoundPage } />
         </Route>

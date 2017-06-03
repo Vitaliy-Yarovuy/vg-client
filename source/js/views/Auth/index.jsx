@@ -8,7 +8,6 @@ import { enterAndConnectToRoom, leaveAndDisconectToRoom } from 'actions/room';
 
 @connect(state => ({
   app: state.app,
-  room: state.room
 }))
 export default class AuthPage extends Component {
   static propTypes = {
@@ -20,7 +19,6 @@ export default class AuthPage extends Component {
   render() {
     const {
       app,
-      room,
       dispatch,
     } = this.props;
 
@@ -31,15 +29,6 @@ export default class AuthPage extends Component {
     const logoutAction = () => {
       return dispatch(logout());
     };
-
-    const enterToRoom = () => {
-      return dispatch(enterAndConnectToRoom());
-    };
-
-    const leaveRoom = () => {
-      return dispatch(leaveAndDisconectToRoom());
-    };
-
 
 
     return (
@@ -56,30 +45,7 @@ export default class AuthPage extends Component {
         <div className='btn-group' role='group'>
           <Button bsStyle='primary' onClick={ login } disabled={ !!app.user }>Login as Noname</Button>
           <Button bsStyle='primary' onClick={ logoutAction } disabled={ !app.user }>Log out</Button>
-        </div>
-
-        
-        <hr />
-        { app.user ?
-          <div>
-            <h2>Room</h2>
-            <div className='btn-group' role='group'>
-              <Button bsStyle='primary' onClick={ enterToRoom } disabled={ !!room.entered }>Enter</Button>
-              <Button bsStyle='primary' onClick={ leaveRoom } disabled={ !room.entered }>Leave</Button>
-            </div>
-            <h3>users:</h3>
-            <p>
-                {room.users.map(user => {
-                   return <kbd style={{marginRight: '5px'}}>{user}</kbd>  
-                })}
-            </p>
-            <h3>boards:</h3>
-            <p>---</p>
-            <h3>messages:</h3>
-            <p>---</p>
-          </div>
-          :null  
-        }    
+        </div> 
 
       </div>
     );
