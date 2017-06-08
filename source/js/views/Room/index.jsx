@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, FormControl } from 'react-bootstrap';
 import { anonymLogin, logout } from 'actions/auth';
-import { enterAndConnectToRoom, leaveAndDisconectToRoom } from 'actions/room';
+import { enterAndConnectToRoom, leaveAndDisconectToRoom, sendMessage } from 'actions/room';
 
 
 @connect(state => ({
@@ -32,9 +32,11 @@ export default class AuthPage extends Component {
       return dispatch(leaveAndDisconectToRoom());
     };
 
-    const sendMessage = () => {
-      return alert(this.messageText.value);
-    };
+    const sendMsg = () => setTimeout (()=>{
+      const message = this.messageText.value;
+      this.messageText.value = '';
+      return dispatch(sendMessage(message));
+    });
 
     return (
       <div className='RoomPage' style={{ position: 'relative' }}>
@@ -52,13 +54,20 @@ export default class AuthPage extends Component {
         <h3>boards:</h3>
         <p>---</p>
         <h3>messages:</h3>
-        <section>
-            {room.msgs.map(message => 
-              <p>{message}</p>
-            )}
-        </section>   
-        <FormControl inputRef={(input) => { this.messageText = input; }} componentClass="textarea" placeholder="textarea" />
-        <Button bsStyle='secondary' onClick={ sendMessage } >submit</Button>
+        <dl className='dl-horizontal' >
+            { room.msgs.map((msg,i)=> 
+              ([
+                <dt key={i+'u'}>{msg.user || '...'}</dt>, 
+                <dd key={i+'m'}>{msg.message}</dd>
+              ])
+            ,[])}
+        </dl>
+ 
+        <FormControl 
+            inputRef={(input) => { this.messageText = input; }} 
+            onKeyPress={(target) => (target.charCode === 13 && sendMsg())}
+            componentClass="textarea" placeholder="textarea" />
+        <Button bsStyle='info' onClick={ sendMsg } >submit</Button>
       </div>
     );
   }

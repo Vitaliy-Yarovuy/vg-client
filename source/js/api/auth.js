@@ -1,6 +1,6 @@
 import 'es6-promise';
 
-const API_ROOT = 'http://127.0.0.1:3001';
+const API_ROOT = `http://${location.hostname}:3001`;
 
 localStorage.token = null;
 

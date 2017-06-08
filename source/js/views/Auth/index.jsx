@@ -12,7 +12,6 @@ import { enterAndConnectToRoom, leaveAndDisconectToRoom } from 'actions/room';
 export default class AuthPage extends Component {
   static propTypes = {
     app: PropTypes.object,
-    room: PropTypes.object,
     dispatch: PropTypes.func,
   };
 
