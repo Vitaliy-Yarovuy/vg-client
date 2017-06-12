@@ -3,8 +3,10 @@ import {responceWaiting} from 'actions/app';
 
 export const ENTER_ROOM_ACTION= 'ENTER_ROOM_ACTION';
 export const LEAVE_ROOM_ACTION = 'LEAVE_ROOM_ACTION';
+export const USER_ENTERED_ROOM_ACTION= 'USER_ENTERED_ROOM_ACTION';
+export const USER_LEAVED_ROOM_ACTION = 'USER_LEAVED_ROOM_ACTION';
 export const LOAD_ROOM_STATE_ACTION = 'LOAD_ROOM_STATE_ACTION';
-//export const SEND_MESSAGE_ACTION = 'SEND_MESSAGE_ACTION';
+export const SEND_MESSAGE_ACTION = 'SEND_MESSAGE_ACTION';
 export const RECEIVE_MESSAGE_ACTION = 'RECEIVE_MESSAGE_ACTION';
 
 
@@ -37,7 +39,8 @@ function leaveRoom() {
 function receiveMessage(user, message) {
   return {
     type: RECEIVE_MESSAGE_ACTION,
-    data: { user, message }
+    user,
+    data: message
   };
 }
 
@@ -54,8 +57,8 @@ export function enterAndConnectToRoom() {
 				 	dispatch(enterRoom());
 				}, 500);
 			},(receiveData)=>{
-				const {user, message} = receiveData;
-				dispatch(receiveMessage(user, message));
+				console.log('receive from ws')
+				dispatch(receiveData);
 			})	
 		})
   };
@@ -71,7 +74,7 @@ export function leaveAndDisconectToRoom() {
 
 export function sendMessage(message) {
 	return (dispatch) => {	
-		api.send({message});
-	 	// dispatch(receiveMessage('me', message));
+		api.send({type:SEND_MESSAGE_ACTION, data:message});
+	 	dispatch(receiveMessage('me', message));
 	}; 
 }

@@ -4,6 +4,9 @@ const API_ROOT = `http://${location.hostname}:3001`;
 
 localStorage.token = null;
 
+ let _token;
+
+
 function anonymLogin() {
   return fetch(`${ API_ROOT }/registrate_anonym`, {
     method: 'post',
@@ -15,7 +18,8 @@ function anonymLogin() {
   }).then(res => res.json())
     .then(res => {
       const { token } = res;
-      localStorage.token = token;
+      //localStorage.token = token;
+      _token = token;
       return getUserInfo();  
     });
 }
@@ -37,11 +41,13 @@ function getUserInfo(){
 }
 
 function loggedIn() {
-  return !!localStorage.token;
+  return !!_token;
+  //return !!localStorage.token;
 }
 
 function getToken() {
-  return localStorage.token;
+  return _token;
+  // return localStorage.token;
 }
 
 export default {
