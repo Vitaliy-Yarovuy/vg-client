@@ -29,11 +29,13 @@ const actionsMap = {
   },
   [USER_ENTERED_ROOM_ACTION]: (state, action) => {
     const {user} = action;
-    return Object.assign({}, state, {users: state.users.concat([user])});
+    const users = state.users.concat([user]);
+    return Object.assign({}, state, {users});
   },
   [USER_LEAVED_ROOM_ACTION]: (state, action) => {
     const {user} = action;
-    return Object.assign({}, state, {users: _.remove(state.users, user)});
+    const users = state.users.filter(u => u !== user);
+    return Object.assign({}, state, {users});
   },
 };
 

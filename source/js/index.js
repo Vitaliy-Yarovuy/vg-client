@@ -42,6 +42,11 @@ if (isProduction) {
   );
 }
 
+if(!location.href.includes('/auth')){
+  location.href = '/auth';
+}
+
+
 
 // Render it to DOM
 ReactDOM.render(
