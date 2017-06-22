@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, FormControl } from 'react-bootstrap';
+import { Button, FormControl, Table } from 'react-bootstrap';
 import { anonymLogin, logout } from 'actions/auth';
 import { enterAndConnectToRoom, leaveAndDisconectToRoom, sendMessage } from 'actions/room';
 
@@ -52,7 +52,28 @@ export default class AuthPage extends Component {
             )}
         </p>
         <h3>boards:</h3>
-        <p>---</p>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>title</th>
+              <th>user</th>
+              <th>join</th>
+            </tr>
+          </thead>
+          <tbody>
+            {room.games.map((game,i)=>(
+              <tr key={i+'g'}>
+                <td>{i}</td>
+                <td>{game.title}</td>
+                <td>{game.user}</td>
+                <td><Button bsStyle='primary'>Join</Button></td>
+              </tr>
+              ) 
+            )}
+          </tbody>
+        </Table>
+      
         <h3>messages:</h3>
         <dl className='dl-horizontal' >
             { room.msgs.map((msg,i)=> 
@@ -60,7 +81,7 @@ export default class AuthPage extends Component {
                 <dt key={i+'u'}>{msg.user || '...'}</dt>, 
                 <dd key={i+'m'}>{msg.message}</dd>
               ])
-            ,[])}
+            )}
         </dl>
  
         <FormControl 

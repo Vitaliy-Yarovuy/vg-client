@@ -7,7 +7,11 @@ import _ from 'lodash';
 const initialState = {
   entered: false,
   users: [],
-  games: [],
+  games: [
+    {id:'fdda765f-fc57-5604-a269-52a7df8164ec', user:'User1', title:'game #2232'},
+    {id:'fdda765f-fc57-5604-a269-52a7df8164ec', user:'User2', title:'game #2232'},
+    {id:'fdda765f-fc57-5604-a269-52a7df8164ec', user:'User3', title:'game #2232'},
+  ],
   msgs:[]
 };
 
