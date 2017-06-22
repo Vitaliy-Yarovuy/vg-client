@@ -1,5 +1,6 @@
 import api from 'api/room';
 import {responceWaiting} from 'actions/app';
+import  uuid from 'uuid/v1';
 
 export const ENTER_ROOM_ACTION= 'ENTER_ROOM_ACTION';
 export const LEAVE_ROOM_ACTION = 'LEAVE_ROOM_ACTION';
@@ -8,6 +9,8 @@ export const USER_LEAVED_ROOM_ACTION = 'USER_LEAVED_ROOM_ACTION';
 export const LOAD_ROOM_STATE_ACTION = 'LOAD_ROOM_STATE_ACTION';
 export const SEND_MESSAGE_ACTION = 'SEND_MESSAGE_ACTION';
 export const RECEIVE_MESSAGE_ACTION = 'RECEIVE_MESSAGE_ACTION';
+export const CREATE_ONLINE_GAME_ACTION = 'CREATE_ONLINE_GAME_ACTION';
+export const JOIN_ONLINE_GAME_ACTION = 'JOIN_ONLINE_GAME_ACTION';
 
 
 function enterRoom() {
@@ -44,6 +47,17 @@ function receiveMessage(user, message) {
   };
 }
 
+function createGameMessage(user, message) {
+  const id = uuid();	
+  return {
+  	id,
+    type: RECEIVE_MESSAGE_ACTION,
+    user,
+    data: message
+  };
+}
+
+
 
 
 export function enterAndConnectToRoom() {
@@ -74,7 +88,13 @@ export function leaveAndDisconectToRoom() {
 
 export function sendMessage(message) {
 	return (dispatch) => {	
-		api.send({type:SEND_MESSAGE_ACTION, data:message});
+		const id = uuid();
+		api.send({ id, type:SEND_MESSAGE_ACTION, data:message});
 	 	dispatch(receiveMessage('me', message));
 	}; 
+}
+
+
+export function createGame(title){
+	return 
 }
