@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, FormControl, Table } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, InputGroup, Table } from 'react-bootstrap';
 import { anonymLogin, logout } from 'actions/auth';
 import { enterAndConnectToRoom, leaveAndDisconectToRoom, sendMessage } from 'actions/room';
 
@@ -52,6 +52,18 @@ export default class AuthPage extends Component {
             )}
         </p>
         <h3>boards:</h3>
+
+
+        <FormGroup>
+          <InputGroup>
+            <FormControl type="text" />
+            <InputGroup.Button>
+              <Button>create match</Button>
+            </InputGroup.Button>
+          </InputGroup>
+        </FormGroup>
+
+
         <Table striped bordered condensed hover>
           <thead>
             <tr>
