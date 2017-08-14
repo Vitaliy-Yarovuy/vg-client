@@ -20,9 +20,10 @@ export const TEAMS = Object.freeze({
 
 
 export const STATES = Object.freeze({
-  PLAYING: 0,
-  WIN_RED: 1,
-  WIN_GREEN: 2
+  WAITING: 0,
+  PLAYING: 1,
+  WIN_RED: 2,
+  WIN_GREEN: 3
 });
 
 

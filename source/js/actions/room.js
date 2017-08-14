@@ -13,6 +13,8 @@ export const CREATE_ONLINE_GAME_ACTION = 'CREATE_ONLINE_GAME_ACTION';
 export const JOIN_ONLINE_GAME_ACTION = 'JOIN_ONLINE_GAME_ACTION';
 
 
+const addID = (obj)=>({id: uuid(), ...obj});
+
 function enterRoom() {
   return {
     type: ENTER_ROOM_ACTION
@@ -47,14 +49,21 @@ function receiveMessage(user, message) {
   };
 }
 
+
 function createGameMessage(user, message) {
-  const id = uuid();	
-  return {
-  	id,
-    type: RECEIVE_MESSAGE_ACTION,
+  return addID({
+    type: CREATE_ONLINE_GAME_ACTION,
     user,
     data: message
-  };
+  });
+}
+
+function joinGameMessage(user, id) {
+  return addID({
+    type: JOIN_ONLINE_GAME_ACTION,
+    user,
+    data: id
+  });
 }
 
 
@@ -63,18 +72,21 @@ function createGameMessage(user, message) {
 export function enterAndConnectToRoom() {
   	return (dispatch) => {
 	    dispatch(responceWaiting(true));
-		api.load().then((data)=>{
-			dispatch(loadRoomData(data));
-			api.connect(()=>{
-				setTimeout(() => {
-				 	dispatch(responceWaiting(false));
-				 	dispatch(enterRoom());
-				}, 500);
-			},(receiveData)=>{
-				console.log('receive from ws')
-				dispatch(receiveData);
-			})	
-		})
+
+  		api.load().then((data)=>{
+  			dispatch(loadRoomData(data));
+
+  			api.connect(() => {
+  				setTimeout(() => {
+  				 	dispatch(responceWaiting(false));
+  				 	dispatch(enterRoom());
+  				}, 500);
+  			},(receiveData)=>{
+  				console.log('receive from ws')
+  				dispatch(receiveData);
+  			});	
+
+  		})
   };
 }
 
@@ -87,14 +99,18 @@ export function leaveAndDisconectToRoom() {
 
 
 export function sendMessage(message) {
-	return (dispatch) => {	
-		const id = uuid();
-		api.send({ id, type:SEND_MESSAGE_ACTION, data:message});
+	return (dispatch, getState) => {	
+    const { user } = getState().app; 
+		api.send(addID({user, type:SEND_MESSAGE_ACTION, data:message}));
 	 	dispatch(receiveMessage('me', message));
 	}; 
 }
 
-
-export function createGame(title){
-	return 
+export function createGame(message) {
+  return (dispatch, getState) => {
+    dispatch(responceWaiting(true));
+    const { user } = getState().app;  
+    api.send(createGameMessage(user, message));
+  }; 
 }
+

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, FormControl, FormGroup, InputGroup, Table } from 'react-bootstrap';
 import { anonymLogin, logout } from 'actions/auth';
-import { enterAndConnectToRoom, leaveAndDisconectToRoom, sendMessage } from 'actions/room';
+import { enterAndConnectToRoom, leaveAndDisconectToRoom, sendMessage, createGame } from 'actions/room';
 
 
 @connect(state => ({
@@ -38,6 +38,12 @@ export default class AuthPage extends Component {
       return dispatch(sendMessage(message));
     });
 
+    const createMatch = () => setTimeout (()=>{
+      const message = this.gameTitle.value;
+      this.gameTitle.value = '';
+      return dispatch(createGame(message));
+    });
+
     return (
       <div className='RoomPage' style={{ position: 'relative' }}>
         <h2>Room</h2>
@@ -56,9 +62,9 @@ export default class AuthPage extends Component {
 
         <FormGroup>
           <InputGroup>
-            <FormControl type="text" />
+            <FormControl  inputRef={(input) => { this.gameTitle = input; }}  type="text" />
             <InputGroup.Button>
-              <Button>create match</Button>
+              <Button onClick={ createMatch }>create match</Button>
             </InputGroup.Button>
           </InputGroup>
         </FormGroup>

@@ -19,7 +19,10 @@ const initialState = {
   nextMove: TEAMS.GREEN,
   moveCount: 2,
   step: 0,
-  gameState: STATES.PLAYING,
+  gameState: STATES.WAITING,
+  redPlayer: null,
+  greenPlayer: null,
+  listeners: [],
 };
 
 

@@ -1,6 +1,7 @@
 import { 
   ENTER_ROOM_ACTION, LEAVE_ROOM_ACTION, LOAD_ROOM_STATE_ACTION, 
   RECEIVE_MESSAGE_ACTION, USER_ENTERED_ROOM_ACTION, USER_LEAVED_ROOM_ACTION, 
+  CREATE_ONLINE_GAME_ACTION, JOIN_ONLINE_GAME_ACTION,
 } from 'actions/room';
 import _ from 'lodash';
 
@@ -41,6 +42,12 @@ const actionsMap = {
     const users = state.users.filter(u => u !== user);
     return Object.assign({}, state, {users});
   },
+  [CREATE_ONLINE_GAME_ACTION]: (state, action) =>{
+    const {id, user, data: title} = action;
+    const game = {id, user, title, state: 'WAITING'}
+    const games =  state.games.concat([game]);
+    return Object.assign({}, state, {games});
+  }
 };
 
 export default function reducer(state = initialState, action = {}) {
